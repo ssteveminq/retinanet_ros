@@ -27,7 +27,15 @@ Update the image path in the script, then run the main script like so:
 PYTHONPATH=. python src/main.py
 ```
 
+## Models
 
-## Python3 vs Python2
+The object detector here is a [RetinaNet](https://arxiv.org/abs/1708.02002) model.
 
-I haven't tested this in python2. We would have to try building PyTorch for python2. We could also look at using C++.
+The backbone of the model is a Resnet variant. We opt to use the
+Retinanet-18 variant instead of the heavier options because we are
+only training the model with one class. The other models are still
+available.
+
+## Training
+
+Check out the [training instructions](/src/train/README.md).
