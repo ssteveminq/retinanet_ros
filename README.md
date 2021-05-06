@@ -46,7 +46,7 @@ which pip
 output should be like "/home/$user_name/anaconda3/envs/$environment_name/bin/pip"
 
 ```
-pip install -r requirement.txt  (**Anaconda**)
+pip install -r requirements.txt  (**Anaconda**)
 python3 -m pip install -r requirements.txt  (**python virtual environement**)
 ```
 
