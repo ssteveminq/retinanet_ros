@@ -57,13 +57,7 @@ cd py38_ws/
 catkin build
 ```
 
-```
-git clone https://github.com/ssteveminq/retinanet_ros.git
-cd retinanet_ros/doc
-pip install -r requirement.txt
-```
-
-- build darknet_ros_msgs package
+- build darknet_ros_msgs package 
 ```
 git clone git@github.com:leggedrobotics/darknet_ros.git
 cd darknet_ros/darknet_ros
