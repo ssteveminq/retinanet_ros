@@ -16,26 +16,20 @@ source activate py38
 
 ### Method2. Python virtual environment
 
-TODo:
+Not confirmed yet)
+```
+python3 -m venv ~/.envs/py38
+source ~/.envs/py38/bin/activate
+python3 -m pip install --upgrade pip
+```
 
 
-
-## Compile
-
-- make a new catkin workspace 
+- Make a new catkin workspace and clone the retinanet_ros package
 
 ```
-source /opt/ros/melodic/setup.bash
 mkdir py38_ws
 cd py38_ws
 mkdir src
-cd ..
-catkin build
-```
-
-- Go to src foler and clone the retinanet_ros package
-```
-cd py38_ws/src
 git clone https://github.com/ssteveminq/retinanet_ros.git
 cd retinanet_ros/doc
 ```
@@ -50,15 +44,18 @@ which pip
 output should be like "/home/$user_name/anaconda3/envs/$environment_name/bin/pip"
 
 ```
-pip install -r requirement.txt
+pip install -r requirement.txt  (**Anaconda**)
+python3 -m pip install -r requirements.txt  (**python virtual environement**)
 ```
 
 
-- Use pre-trained model to detect tire.
+## Compile
 
-- Go To the following link: https://drive.google.com/drive/folders/1_XYbRO9vCr21UbtI8nFXSPIuvH-Imk4T?usp=sharing
-
-- Download the zip file and extract it into a folder called **~/runs/tire-detector/2021-04-22T11.25.25**
+```
+source /opt/ros/melodic/setup.bash
+cd py38_ws/
+catkin build
+```
 
 ```
 git clone https://github.com/ssteveminq/retinanet_ros.git
@@ -80,13 +77,17 @@ catkin build darknet_ros_msgs
 catkin build retinanet_ros
 ```
 
+- Download pre-trained model to detect tire.
+
+- Go To the following link: https://drive.google.com/drive/folders/1_XYbRO9vCr21UbtI8nFXSPIuvH-Imk4T?usp=sharing
+
+- Download the zip file and extract it into a folder called **~/runs/tire-detector/2021-04-22T11.25.25**
+
 - run the test code 
 ```
 rosrun retinanet_ros test.py
 ```
 
 - You might have to change the topic name for image topic.
-
-
 
 
