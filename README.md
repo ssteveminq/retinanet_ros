@@ -22,7 +22,7 @@ TODo:
 
 ## Compile
 
-make a new catkin workspaces 
+make a new catkin workspace 
 
 ```
 mkdir py38_ws
