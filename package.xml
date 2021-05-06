@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>retina_detection</name>
+  <name>retinanet_ros</name>
   <version>0.0.0</version>
   <description>retina_detection package</description>
 

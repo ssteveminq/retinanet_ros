@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 import sys
-print(sys.path)
-original_path = sys.path 
 sys.path.append('/usr/lib/python2.7/dist-packages')
 import rospy
 from sensor_msgs.msg import Image
@@ -20,15 +18,16 @@ from model.detector import *
 
 class ObjectDectors(object):
     def __init__(self, wait=0.0):
-        image_topic = "/camera/rgb/image_raw"
-        rospy.Subscriber(image_topic, Image, self.image_callback)
+        # image_topic = "/camera/rgb/image_raw"
+        self.model_ = Detector(timestamp="2021-04-22T11.25.25")
+        self.model_.eval()
         self.img_pub =rospy.Publisher("detected_image", Image, queue_size=10)
         self.ret_pub =rospy.Publisher("retina_ros/bounding_boxes", BoundingBoxes, queue_size=10)
         self.bridge = CvBridge()
-        self.model_ = Detector(timestamp="2021-04-22T11.25.25")
-        self.model_.eval()
-        
         print("model-created")
+        image_topic = "/hsrb/head_rgbd_sensor/rgb/image_raw"
+        # camera/rgb/image_raw"
+        rospy.Subscriber(image_topic, Image, self.image_callback)
         self.savefigure=False
         self.listener()
         # self.bridge = CvBridge()
@@ -36,7 +35,6 @@ class ObjectDectors(object):
 
 
     def normalize(self, 
-        # img, mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225), max_pixel_value=255.0,) -> np.ndarray:
         img, mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225), max_pixel_value=255.0,):
 
         mean = np.array(mean, dtype=np.float32)

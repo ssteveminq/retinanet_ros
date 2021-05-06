@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(retina_detection)
+project(retinanet_ros)
 
 find_package(catkin
     REQUIRED
@@ -15,16 +15,6 @@ find_package(catkin
     )
 
 catkin_python_setup()
-
- add_service_files(
-   FILES
- )
-
-
-
-add_action_files(
-  DIRECTORY action
-)
 
 generate_messages(
    DEPENDENCIES
