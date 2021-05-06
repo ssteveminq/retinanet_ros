@@ -83,6 +83,7 @@ catkin build retinanet_ros
 
 - run the test code 
 ```
+source /py38_ws/devel/setup.bash
 rosrun retinanet_ros test.py
 ```
 
