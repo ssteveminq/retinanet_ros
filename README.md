@@ -59,7 +59,7 @@ cd py38_ws/
 catkin build
 ```
 
-- build darknet_ros_msgs package 
+- clone and build darknet_ros_msgs package 
 ```
 git clone git@github.com:leggedrobotics/darknet_ros.git
 cd darknet_ros/darknet_ros
