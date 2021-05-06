@@ -9,8 +9,9 @@ sys.path.remove('/usr/lib/python2.7/dist-packages')
 sys.path.remove('/opt/ros/melodic/lib/python2.7/dist-packages')
 import cv2
 sys.path.append('/opt/ros/melodic/lib/python2.7/dist-packages')
-sys.path.append('/usr/lib/python2.7/dist-packages')
+# sys.path.append('/usr/lib/python2.7/dist-packages')
 import numpy as np
+print("numpy_version", np.version)
 from darknet_ros_msgs.msg import BoundingBox, BoundingBoxes
 
 from model.detector import *
@@ -25,7 +26,8 @@ class ObjectDectors(object):
         self.ret_pub =rospy.Publisher("retina_ros/bounding_boxes", BoundingBoxes, queue_size=10)
         self.bridge = CvBridge()
         print("model-created")
-        image_topic = "/hsrb/head_rgbd_sensor/rgb/image_raw"
+        # image_topic = "/hsrb/head_rgbd_sensor/rgb/image_raw"
+        image_topic = "/rgb/image_raw"
         # camera/rgb/image_raw"
         rospy.Subscriber(image_topic, Image, self.image_callback)
         self.savefigure=False
@@ -36,6 +38,7 @@ class ObjectDectors(object):
 
     def normalize(self, 
         img, mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225), max_pixel_value=255.0,):
+
 
         mean = np.array(mean, dtype=np.float32)
         mean *= max_pixel_value
@@ -56,12 +59,14 @@ class ObjectDectors(object):
 
     def image_callback(self,msg):
         # print("Received an image!")
-        # self.detected_msg =std_msgs.msg.String()	  
         try:
-            # Convert your ROS Image message to OpenCV2
-            # cv2_img   = self.bridge.imgmsg_to_cv2(msg,"bgr8")
+            # Convert your ROS Image message to numpy image data type
             cv2_img= np.frombuffer(msg.data, dtype=np.uint8).reshape(msg.height, msg.width, -1)
             image_ori = cv2.resize(cv2_img, (512, 512))
+            #remove alpha channel if it exists
+            if image_ori.shape[-1]==4:
+                image_ori= image_ori[...,:3]
+            #normalize the image
             image = self.normalize(image_ori)
 
             with torch.no_grad():
@@ -78,11 +83,9 @@ class ObjectDectors(object):
                 confidence = float(box.confidence)
                 box = (box.box * torch.Tensor([512] * 4)).int().tolist()
                 if confidence>0.35:
-                    # print(box)
                     cv2.rectangle(image_ori, (box[0], box[1]), (box[2], box[3]), (255, 0, 0), 2)
                     cv2.putText(image_ori, str(confidence)[:4], (box[0]-2, box[1]-2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,0,0), 2)
                     # msg_frame = self.bridge.cv2_to_imgmsg(image_ori)
-                    # self.img_pub.publish(msg_frame )
                     detection_box = BoundingBox()
                     # detection_box.Class=str(box.class_id)
                     detection_box.xmin = box[0]
