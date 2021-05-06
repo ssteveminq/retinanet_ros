@@ -91,9 +91,9 @@ rosrun retinanet_ros test.py
 
 
 ## Contributer
-Alexander Witt 
-Minkyu Kim
-Ryan Gupta
+- Alexander Witt
+- Minkyu Kim
+- Ryan Gupta
 
 
 
