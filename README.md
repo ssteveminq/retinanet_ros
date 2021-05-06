@@ -16,7 +16,7 @@ source activate py38
 
 ### Method2. Python virtual environment
 
-Not confirmed yet)
+(Not confirmed yet)
 ```
 python3 -m venv ~/.envs/py38
 source ~/.envs/py38/bin/activate
@@ -44,8 +44,8 @@ which pip
 output should be like "/home/$user_name/anaconda3/envs/$environment_name/bin/pip"
 
 ```
-pip install -r requirement.txt  (**Anaconda**)
-python3 -m pip install -r requirements.txt  (**python virtual environement**)
+pip install -r requirement.txt  (**'Anaconda'**)
+python3 -m pip install -r requirements.txt  (**'python virtual environement'**)
 ```
 
 
@@ -75,7 +75,7 @@ catkin build retinanet_ros
 
 - Go To the following link: https://drive.google.com/drive/folders/1_XYbRO9vCr21UbtI8nFXSPIuvH-Imk4T?usp=sharing
 
-- Download the zip file and extract it into a folder called **~/runs/tire-detector/2021-04-22T11.25.25**
+- Download the zip file and extract it into a folder called **'~/runs/tire-detector/2021-04-22T11.25.25'**
 
 - run the test code 
 ```
