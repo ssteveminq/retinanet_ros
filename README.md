@@ -90,3 +90,10 @@ rosrun retinanet_ros test.py
 - You might have to change the topic name for image topic.
 
 
+## Contributer
+Alexander Witt 
+Minkyu Kim
+Ryan Gupta
+
+
+
