@@ -1,5 +1,7 @@
 # Retinanet_ros
 
+Object recognition algorithm 
+
 ## Make virtual environment with python 3.8
 ### Method1. Anaconda 
 
