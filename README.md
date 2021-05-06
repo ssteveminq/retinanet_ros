@@ -46,7 +46,7 @@ which pip
 output should be like "/home/$user_name/anaconda3/envs/$environment_name/bin/pip"
 
 ```
-pip install -r requirement.txt  (**Anaconda**)
+pip install -r requirements.txt  (**Anaconda**)
 python3 -m pip install -r requirements.txt  (**python virtual environement**)
 ```
 
@@ -77,7 +77,7 @@ catkin build retinanet_ros
 
 - Download pre-trained model to detect tire.
 
-- Go To the following link: https://drive.google.com/drive/folders/1_XYbRO9vCr21UbtI8nFXSPIuvH-Imk4T?usp=sharing
+- Go To the following link: https://drive.google.com/file/d/16DihIWDBkDreBPA_yqBTu9E3Gawq0QJ4/view?usp=sharing
 
 - Download the zip file and extract it into a folder called **~/runs/tire-detector/2021-04-22T11.25.25**
 
@@ -88,5 +88,12 @@ rosrun retinanet_ros test.py
 ```
 
 - You might have to change the topic name for image topic.
+
+
+## Contributer
+- Alexander Witt
+- Minkyu Kim
+- Ryan Gupta
+
 
 
