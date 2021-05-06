@@ -3,6 +3,8 @@
 ## Make virtual environment with python 3.8
 ### Method1. Anaconda 
 
+Here, I used "py38" as the name of virtual environment
+
 ```
 conda create -n py38 python=3.8 anaconda
 ```
