@@ -3,13 +3,13 @@
 ## Make virtual environment with python 3.8
 ### Method1. Anaconda 
 
-Here, I used "py38" as the name of virtual environment
+- Here, I used "py38" as the name of virtual environment
 
 ```
 conda create -n py38 python=3.8 anaconda
 ```
 
-Activate your virtual environment
+- Activate your virtual environment
 ```
 source activate py38
 ```
@@ -22,7 +22,7 @@ TODo:
 
 ## Compile
 
-make a new catkin workspace 
+- make a new catkin workspace 
 
 ```
 source /opt/ros/melodic/setup.bash
@@ -33,15 +33,17 @@ cd ..
 catkin build
 ```
 
-Go to src foler and clone the retinanet_ros package
+- Go to src foler and clone the retinanet_ros package
 ```
 cd py38_ws/src
 git clone https://github.com/ssteveminq/retinanet_ros.git
 cd retinanet_ros/doc
 ```
 
-Install required packages using pip install ( should use pip install virtual environment)
-You should confirm that you are using correct pip
+- Install required packages using pip install ( should use pip install virtual environment)
+
+- You should confirm that you are using correct pip
+
 ```
 which pip
 ```
@@ -64,7 +66,7 @@ cd retinanet_ros/doc
 pip install -r requirement.txt
 ```
 
-build darknet_ros_msgs package
+- build darknet_ros_msgs package
 ```
 git clone git@github.com:leggedrobotics/darknet_ros.git
 cd darknet_ros/darknet_ros
@@ -73,17 +75,17 @@ cd ..
 catkin build darknet_ros_msgs
 ```
 
-build retinanet_ros package
+- build retinanet_ros package
 ```
 catkin build retinanet_ros
 ```
 
-run the test code 
+- run the test code 
 ```
 rosrun retinanet_ros test.py
 ```
 
-You might have to change the topic name for image topic.
+- You might have to change the topic name for image topic.
 
 
 
