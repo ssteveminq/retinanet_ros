@@ -25,6 +25,7 @@ TODo:
 make a new catkin workspace 
 
 ```
+source /opt/ros/melodic/setup.bash
 mkdir py38_ws
 cd py38_ws
 mkdir src
@@ -32,14 +33,12 @@ cd ..
 catkin build
 ```
 
-
 Go to src foler and clone the retinanet_ros package
 ```
 cd py38_ws/src
 git clone https://github.com/ssteveminq/retinanet_ros.git
 cd retinanet_ros/doc
 ```
-
 
 Install required packages using pip install ( should use pip install virtual environment)
 You should confirm that you are using correct pip
@@ -53,11 +52,11 @@ pip install -r requirement.txt
 ```
 
 
-Use pre-trained model to detect tire
+Use pre-trained model to detect tire.
 
 Go To the following link: https://drive.google.com/drive/folders/1_XYbRO9vCr21UbtI8nFXSPIuvH-Imk4T?usp=sharing
 
-Download the zip file and extract it into a folder called ~/runs/tire-detector/2021-04-22T11.25.25
+Download the zip file and extract it into a folder called **~/runs/tire-detector/2021-04-22T11.25.25**
 
 ```
 git clone https://github.com/ssteveminq/retinanet_ros.git
@@ -74,7 +73,17 @@ cd ..
 catkin build darknet_ros_msgs
 ```
 
+build retinanet_ros package
+```
+catkin build retinanet_ros
+```
 
+run the test code 
+```
+rosrun retinanet_ros test.py
+```
+
+You might have to change the topic name for image topic.
 
 
 
