@@ -39,7 +39,12 @@ cd retinanet_ros/doc
 ```
 
 
-Install required packages using pip install
+Install required packages using pip install ( should use pip install virtual environment)
+You should confirm that you are using correct pip
+```
+which pip
+```
+output should be like "/home/$user_name/anaconda3/envs/$environment_name/bin/pip"
 
 ```
 pip install -r requirement.txt
