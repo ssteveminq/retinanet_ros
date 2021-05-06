@@ -24,6 +24,8 @@ python3 -m pip install --upgrade pip
 ```
 
 
+## Dependencies
+
 - Make a new catkin workspace and clone the retinanet_ros package
 
 ```
@@ -70,6 +72,8 @@ catkin build darknet_ros_msgs
 ```
 catkin build retinanet_ros
 ```
+
+## Run
 
 - Download pre-trained model to detect tire.
 
