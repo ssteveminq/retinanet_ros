@@ -1,6 +1,6 @@
 """A detector model which wraps around a feature extraction backbone, fpn, and RetinaNet
-head.This allows for easy interchangeability during experimentation and a reliable way to
-load saved models."""
+head. This allows for easy interchangeability during experimentation and a reliable way
+to load saved models."""
 
 import collections
 import pathlib

@@ -93,7 +93,7 @@ rosrun retinanet_ros test.py
 
 
 ## Contributer
-- Alexander Witt
+- Alexander Witt [`@alexwitt23`](https://github.com/alexwitt23)
 - Minkyu Kim
 - Ryan Gupta
 
