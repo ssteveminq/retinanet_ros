@@ -19,13 +19,13 @@ from torch import distributed
 from torch.nn import parallel
 from torch.utils import data
 
-from src.model import detector
-from src.train import dataset
-from src.train import collate
-from src.train.train_utils import logger
-from src.train.train_utils import utils
-from third_party.detectron2 import losses
-from third_party.detectron2 import pascal_voc
+from src.retina_detection.model import detector
+from src.retina_detection.train import dataset
+from src.retina_detection.train import collate
+from src.retina_detection.train.train_utils import logger
+from src.retina_detection.train.train_utils import utils
+from src.retina_detection.third_party.detectron2 import losses
+from src.retina_detection.third_party.detectron2 import pascal_voc
 
 _LOG_INTERVAL = 10
 _SAVE_DIR = pathlib.Path("~/runs/tire-detector").expanduser()
@@ -146,7 +146,9 @@ def train(
             pct_start=warm_up_percent,
         )
 
-    scaler = torch.cuda.amp.GradScaler()
+    scaler = None
+    if torch.cuda.is_available():
+        scaler = torch.cuda.amp.GradScaler()
 
     # Begin training. Loop over all the epochs and run through the training data, then
     # the evaluation data. Save the best weights for the various metrics we capture.
@@ -194,7 +196,7 @@ def train(
             if previous_loss is None:
                 previous_loss = total_loss
 
-            if world_size > 1:
+            if scaler is not None:
                 scaler.scale(total_loss).backward()
                 scaler.step(optimizer)
                 scaler.update()

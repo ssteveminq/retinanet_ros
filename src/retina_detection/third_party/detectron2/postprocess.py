@@ -4,7 +4,7 @@ import dataclasses
 import torch
 from torchvision import ops
 
-from third_party.detectron2 import regression
+from src.retina_detection.third_party.detectron2 import regression
 
 
 @dataclasses.dataclass
