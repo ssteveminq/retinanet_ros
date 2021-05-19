@@ -9,12 +9,12 @@ from typing import List
 import torch
 import yaml
 
-from src.retina_detection.model import fpn
-from src.retina_detection.third_party.detectron2 import postprocess
-from src.retina_detection.third_party.detectron2 import regression
-from src.retina_detection.third_party.detectron2 import anchors
-from src.retina_detection.third_party.detectron2 import retinanet_head
-from src.retina_detection.third_party import torchvision
+from model import fpn
+from third_party.detectron2 import postprocess
+from third_party.detectron2 import regression
+from third_party.detectron2 import anchors
+from third_party.detectron2 import retinanet_head
+from third_party import torchvision
 
 
 class Detector(torch.nn.Module):

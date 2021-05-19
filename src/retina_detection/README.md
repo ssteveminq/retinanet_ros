@@ -34,8 +34,8 @@ In the config, find the `data.data_path` key and change the path to your dataset
 To start a training job, run:
 
 ```
-PYTHONPATH=. src/retina_detection/train/train.py \
-    --config src/retina_detection/train/configs/retinanet18.yaml
+PYTHONPATH=. train/train.py \
+    --config train/configs/retinanet18.yaml
 ```
 
 Training will automatically use all the available GPUs, but sometimes this is
@@ -43,8 +43,8 @@ problematic if you have different cards. To only traing on one or some set of
 gpus, use:
 
 ```
-PYTHONPATH=. CUDA_VISIBLE_DEVICES=0 src/retina_detection/train/train.py \
-    --config src/retina_detection/train/configs/retinanet18.yaml
+PYTHONPATH=. CUDA_VISIBLE_DEVICES=0 train/train.py \
+    --config train/configs/retinanet18.yaml
 ```
 
 For two GPUs, `CUDA_VISIBLE_DEVICES=0,1`. And `CUDA_VISIBLE_DEVICES=-1` will run on a

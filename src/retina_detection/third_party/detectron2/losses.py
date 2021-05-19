@@ -3,8 +3,8 @@ from typing import List, Dict, Tuple
 import torch
 from torchvision.ops import boxes
 
-from src.retina_detection.third_party.detectron2 import postprocess
-from src.retina_detection.third_party.detectron2 import regression
+from third_party.detectron2 import postprocess
+from third_party.detectron2 import regression
 
 
 def smooth_l1_loss(

@@ -9,7 +9,7 @@ import cv2
 import torch
 from torch.utils import data
 
-from src.retina_detection.train import augmentations as augs
+from train import augmentations as augs
 
 
 class DetectionDataset(data.Dataset):

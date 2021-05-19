@@ -19,13 +19,13 @@ from torch import distributed
 from torch.nn import parallel
 from torch.utils import data
 
-from src.retina_detection.model import detector
-from src.retina_detection.train import dataset
-from src.retina_detection.train import collate
-from src.retina_detection.train.train_utils import logger
-from src.retina_detection.train.train_utils import utils
-from src.retina_detection.third_party.detectron2 import losses
-from src.retina_detection.third_party.detectron2 import pascal_voc
+from model import detector
+from train import dataset
+from train import collate
+from train.train_utils import logger
+from train.train_utils import utils
+from third_party.detectron2 import losses
+from third_party.detectron2 import pascal_voc
 
 _LOG_INTERVAL = 10
 _SAVE_DIR = pathlib.Path("~/runs/tire-detector").expanduser()
