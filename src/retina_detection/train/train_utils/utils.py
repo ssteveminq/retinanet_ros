@@ -3,7 +3,7 @@ from typing import Any, Dict, List
 
 import torch
 
-from third_party import ranger
+from src.retina_detection.third_party import ranger
 
 
 def save_model(model: torch.nn.Module, save_path: pathlib.Path) -> None:
