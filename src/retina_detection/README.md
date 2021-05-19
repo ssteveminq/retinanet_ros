@@ -23,7 +23,53 @@ dataset will only have an `annotation.json` file whereas a real COCO dataset wou
 annotation files for all the different data splits.
 
 
+## Training
 
-Training runs are configured by a `.yaml` file inside `train/configs`. Right now there
-is just one config for a retinanet18 model. 
+Training runs are configured by a `.yaml` file inside
+`src/retina_detection_train/train/configs`. Right now there is just one config for a
+retinanet18 model. 
 
+In the config, find the `data.data_path` key and change the path to your dataset.
+
+To start a training job, run:
+
+```
+PYTHONPATH=. src/retina_detection/train/train.py \
+    --config src/retina_detection/train/configs/retinanet18.yaml
+```
+
+Training will automatically use all the available GPUs, but sometimes this is
+problematic if you have different cards. To only traing on one or some set of
+gpus, use:
+
+```
+PYTHONPATH=. CUDA_VISIBLE_DEVICES=0 src/retina_detection/train/train.py \
+    --config src/retina_detection/train/configs/retinanet18.yaml
+```
+
+For two GPUs, `CUDA_VISIBLE_DEVICES=0,1`. And `CUDA_VISIBLE_DEVICES=-1` will run on a
+cpu.
+
+
+This will save model checkpoints to `~/runs/tire-detector` as specified at the top of
+`train.py`. Feel free to change the save directory to something that makes more sense
+for you.
+
+
+## Contents
+
+* `model/`: a basic RetinaNet implementation.
+* `third_party/`: external code for object detection. Mainly from
+  [`detectron2`](https://github.com/facebookresearch/detectron2).
+* `train/`: the bulk of relevant traing code.
+    * `configs/`: where the .yaml training configuration files are held.
+    * `train_utils/`: some scripts either directly used during training or help create
+      a sucessful training run.
+      * `logger.py`: simple script used to log output during training.
+      * `utils.py`: utility functions to aid training.
+      * `yolo_to_coco.py`: convert YOLO labels to COCO dataset.
+    * `augmentations.py`: the training and validation augmentations used during training.
+    * `collate.py`: process per-batch training data for training.
+    * `dataset.py`: training dataset built around a COCO dataset.
+    * `train.py`: the main training script.
+      

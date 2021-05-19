@@ -146,7 +146,9 @@ def train(
             pct_start=warm_up_percent,
         )
 
-    scaler = torch.cuda.amp.GradScaler()
+    scaler = None
+    if torch.cuda.is_available():
+        scaler = torch.cuda.amp.GradScaler()
 
     # Begin training. Loop over all the epochs and run through the training data, then
     # the evaluation data. Save the best weights for the various metrics we capture.
@@ -194,7 +196,7 @@ def train(
             if previous_loss is None:
                 previous_loss = total_loss
 
-            if world_size > 1:
+            if scaler is not None:
                 scaler.scale(total_loss).backward()
                 scaler.step(optimizer)
                 scaler.update()

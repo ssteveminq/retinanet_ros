@@ -33,4 +33,4 @@ training:
   eval_batch_size: 10
   eval_start_epoch: 0
 data:
-  data_path: "./src/train/data/tire-dataset"
+  data_path: "/home/alex/Desktop/projects/minimal-object-detector/src/train/data/tire-dataset"
