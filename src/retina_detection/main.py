@@ -1,10 +1,11 @@
+import pathlib
 import sys
 # sys.path.remove('/opt/ros/melodic/lib/python2.7/dist-packages')
 import cv2
 import torch
 import numpy as np
 
-from src.model import detector
+from model import detector
 
 
 def normalize(
@@ -26,22 +27,18 @@ def normalize(
     return img
 
 
-save_path = "data/result/"
-testdata_path = "data/"
-num_data = 8
-# image = cv2.imread(
-    # "/home/alex/Desktop/projects/minimal-object-detector/src/train/data/images/2020-Toyota-86-GT-TRD-Wheels.jpg"
-# )
-for i in range(num_data):
-    filename= testdata_path+str(i)+".jpg"
-    print("test filename", filename)
-    image = cv2.imread(filename)
+save_path = pathlib.Path("/tmp/results/")
+testdata_path = pathlib.Path("/home/alex/Desktop/images")
+model = detector.Detector(timestamp="2021-06-27T17.11.02")
+model.eval()
+
+for img in testdata_path.glob("*"):
+    print("test filename", img)
+    image_flip = cv2.imread(str(img))
+    image = cv2.cvtColor(image_flip, cv2.COLOR_BGR2RGB)
     image_ori = cv2.resize(image, (512, 512))
     image = normalize(image_ori)
 
-
-    model = detector.Detector(timestamp="2021-04-22T11.25.25")
-    model.eval()
 
     with torch.no_grad():
         image = torch.Tensor(image)
@@ -50,13 +47,10 @@ for i in range(num_data):
         boxes = model.get_boxes(image.permute(2, 0, 1).unsqueeze(0))
 
     for box in boxes[0]:
-        # print(box)
-        # print(box.confidence)
         confidence = float(box.confidence)
         box = (box.box * torch.Tensor([512] * 4)).int().tolist()
-        if confidence>0.35:
-            # print(box)
-            cv2.rectangle(image_ori, (box[0], box[1]), (box[2], box[3]), (255, 0, 0), 2)
+        if confidence > 0.05:
+            print(confidence)
+            cv2.rectangle(image_flip, (box[0], box[1]), (box[2], box[3]), (255, 0, 0), 2)
 
-    savefilename=save_path+str(i)+".jpg"
-    cv2.imwrite(savefilename, image_ori)
+    cv2.imwrite(str(save_path / img.name), image_flip)
