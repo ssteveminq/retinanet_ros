@@ -9,8 +9,8 @@ def det_train_augs(height: int, width: int) -> albu.Compose:
     return albu.Compose(
         [
             albu.RandomResizedCrop(512, 512),
-            albu.ColorJitter(),
-            albu.RandomGamma(),
+            # albu.ColorJitter(),
+            # albu.RandomGamma(),
             albu.Flip(),
             albu.Transpose(),
             albu.Rotate(),

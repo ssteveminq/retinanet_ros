@@ -28,7 +28,8 @@ from third_party.detectron2 import losses
 from third_party.detectron2 import pascal_voc
 
 _LOG_INTERVAL = 10
-_SAVE_DIR = pathlib.Path("~/runs/tire-detector").expanduser()
+# _SAVE_DIR = pathlib.Path("~/runs/tire-detector").expanduser()
+_SAVE_DIR = pathlib.Path("~/runs/barrel-detector").expanduser()
 
 
 def train(
@@ -147,8 +148,8 @@ def train(
         )
 
     scaler = None
-    if torch.cuda.is_available():
-        scaler = torch.cuda.amp.GradScaler()
+    # if torch.cuda.is_available():
+        # scaler = torch.cuda.amp.GradScaler()
 
     # Begin training. Loop over all the epochs and run through the training data, then
     # the evaluation data. Save the best weights for the various metrics we capture.
@@ -170,7 +171,7 @@ def train(
             gt_regressions = gt_regressions.to(device, non_blocking=True)
             gt_classes = gt_classes.to(device, non_blocking=True)
 
-            with torch.cuda.amp.autocast():
+            with torch.cuda.amp.autocast(enabled=False):
                 # Forward pass through detector
                 cls_per_level, reg_per_level = model(images)
 
@@ -363,6 +364,7 @@ def create_data_loader(
     assert data_dir.is_dir(), data_dir
 
     meta = pathlib.Path(data_dir / "annotations.json")
+    print("data_dir", data_dir)
     dataset_ = dataset.DetectionDataset(
         data_dir=data_dir / "images",
         metadata_path=meta,
@@ -382,13 +384,15 @@ def create_data_loader(
     else:
         collate_fn = collate.Collate(num_classes=num_classes, original_anchors=anchors)
 
+
     loader = data.DataLoader(
         dataset_,
         batch_size=batch_size,
         pin_memory=True,
         sampler=sampler,
         collate_fn=collate_fn,
-        num_workers=max(torch.multiprocessing.cpu_count() // world_size, 8),
+        # num_workers=max(torch.multiprocessing.cpu_count() // world_size, 1),
+        num_workers=0,
         drop_last=True if val else False,
     )
     return loader, sampler
@@ -441,7 +445,9 @@ if __name__ == "__main__":
     (save_dir / "config.yaml").write_text(yaml.dump(config))
 
     use_cuda = torch.cuda.is_available()
+    print("use_cuda", use_cuda)
     world_size = torch.cuda.device_count() if use_cuda else 1  # GPUS or a CPU
+    print("word_size", world_size)
 
     os.environ["MASTER_ADDR"] = "127.0.0.1"
     os.environ["MASTER_PORT"] = "12345"
