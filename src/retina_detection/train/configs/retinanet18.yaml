@@ -28,9 +28,9 @@ training:
     max_lr: 1.0e-3
     end_lr: 1.0e-8
     warmup_fraction: 0.72
-  epochs: 55
+  epochs: 100
   train_batch_size: 55
-  eval_batch_size: 10
-  eval_start_epoch: 0
+  eval_batch_size: 55
+  eval_start_epoch: 50
 data:
-  data_path: "./src/train/data/tire-dataset"
+  data_path: "~/datasets/barrel-20210627T215439Z-001/barrel"

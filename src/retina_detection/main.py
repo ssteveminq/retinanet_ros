@@ -1,3 +1,4 @@
+import pathlib
 import sys
 # sys.path.remove('/opt/ros/melodic/lib/python2.7/dist-packages')
 import cv2
@@ -26,6 +27,7 @@ def normalize(
     return img
 
 
+'''mk
 save_path = "data/result/"
 testdata_path = "data/"
 num_data = 10
@@ -38,14 +40,23 @@ for i in range(num_data):
     image_flip = cv2.imread(filename)
     image = cv2.cvtColor(image_flip, cv2.COLOR_BGR2RGB)
     # image = cv2.imread(filename)
+
+'''
+save_path = pathlib.Path("/tmp/results/")
+testdata_path = pathlib.Path("/home/mk/project/retinanet_ros/src/retina_detection/data/")
+model = detector.Detector(timestamp="2021-06-27T16.50.49")
+model.eval()
+
+for img in testdata_path.glob("*"):
+    if img.is_dir()==True:
+        continue
+    print("test filename", img)
+    image_flip = cv2.imread(str(img))
+    image = cv2.cvtColor(image_flip, cv2.COLOR_BGR2RGB)
     image_ori = cv2.resize(image, (512, 512))
     image_flip = cv2.resize(image_flip, (512, 512))
     image = normalize(image_ori)
 
-
-    model = detector.Detector(timestamp="2021-06-27T15.14.45")
-    # model = detector.Detector(timestamp="2021-06-27T16.50.49")
-    model.eval()
 
     with torch.no_grad():
         image = torch.Tensor(image)
@@ -54,13 +65,11 @@ for i in range(num_data):
         boxes = model.get_boxes(image.permute(2, 0, 1).unsqueeze(0))
 
     for box in boxes[0]:
-        # print(box)
-        # print(box.confidence)
         confidence = float(box.confidence)
         box = (box.box * torch.Tensor([512] * 4)).int().tolist()
-        if confidence>0.15:
-            print(box)
+
+        if confidence > 0.05:
+            print(confidence)
             cv2.rectangle(image_flip, (box[0], box[1]), (box[2], box[3]), (255, 0, 0), 2)
 
-    savefilename=save_path+str(i)+".jpg"
-    cv2.imwrite(savefilename, image_flip)
+    cv2.imwrite(str(save_path / img.name), image_flip)

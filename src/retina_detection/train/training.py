@@ -391,9 +391,8 @@ def create_data_loader(
         pin_memory=True,
         sampler=sampler,
         collate_fn=collate_fn,
-        # num_workers=max(torch.multiprocessing.cpu_count() // world_size, 1),
         num_workers=0,
-        drop_last=True if val else False,
+        drop_last=False if val else True,
     )
     return loader, sampler
 
