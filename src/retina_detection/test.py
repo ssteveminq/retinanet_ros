@@ -11,7 +11,7 @@ import cv2
 sys.path.append('/opt/ros/melodic/lib/python2.7/dist-packages')
 # sys.path.append('/usr/lib/python2.7/dist-packages')
 import numpy as np
-print("numpy_version", np.version)
+# print("numpy_version", np.version)
 from darknet_ros_msgs.msg import BoundingBox, BoundingBoxes
 
 from model.detector import *
@@ -20,14 +20,15 @@ from model.detector import *
 class ObjectDectors(object):
     def __init__(self, wait=0.0):
         # image_topic = "/camera/rgb/image_raw"
-        self.model_ = Detector(timestamp="2021-04-22T11.25.25")
+        # self.model_ = Detector(timestamp="2021-04-22T11.25.25")
+        self.model_ = Detector(timestamp="2021-06-27T16.50.49")
         self.model_.eval()
         self.img_pub =rospy.Publisher("detected_image", Image, queue_size=10)
         self.ret_pub =rospy.Publisher("retina_ros/bounding_boxes", BoundingBoxes, queue_size=10)
         self.bridge = CvBridge()
         print("model-created")
         # image_topic = "/hsrb/head_rgbd_sensor/rgb/image_raw"
-        image_topic = "/rgb/image_raw"
+        image_topic = "camera/color/image_raw"
         # camera/rgb/image_raw"
         rospy.Subscriber(image_topic, Image, self.image_callback)
         self.savefigure=False
@@ -62,7 +63,10 @@ class ObjectDectors(object):
         try:
             # Convert your ROS Image message to numpy image data type
             cv2_img= np.frombuffer(msg.data, dtype=np.uint8).reshape(msg.height, msg.width, -1)
+            cv2_img_ori= cv2.cvtColor(cv2_img, cv2.COLOR_BGR2RGB)
+            cv2_img_ori= cv2.resize(cv2_img_ori, (512, 512))
             image_ori = cv2.resize(cv2_img, (512, 512))
+
             #remove alpha channel if it exists
             if image_ori.shape[-1]==4:
                 image_ori= image_ori[...,:3]
@@ -82,9 +86,9 @@ class ObjectDectors(object):
                 # print(box.confidence)
                 confidence = float(box.confidence)
                 box = (box.box * torch.Tensor([512] * 4)).int().tolist()
-                if confidence>0.35:
-                    cv2.rectangle(image_ori, (box[0], box[1]), (box[2], box[3]), (255, 0, 0), 2)
-                    cv2.putText(image_ori, str(confidence)[:4], (box[0]-2, box[1]-2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,0,0), 2)
+                if confidence>0.1:
+                    cv2.rectangle(cv2_img_ori, (box[0], box[1]), (box[2], box[3]), (255, 0, 0), 2)
+                    cv2.putText(cv2_img_ori, str(confidence)[:4], (box[0]-2, box[1]-2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,0,0), 2)
                     # msg_frame = self.bridge.cv2_to_imgmsg(image_ori)
                     detection_box = BoundingBox()
                     # detection_box.Class=str(box.class_id)
@@ -95,7 +99,8 @@ class ObjectDectors(object):
                     detection_box.probability = confidence
                     Boxes_msg.bounding_boxes.append(detection_box)
 
-            msg_frame = self.bridge.cv2_to_imgmsg(image_ori)
+            # msg_frame = self.bridge.cv2_to_imgmsg(image_ori)
+            msg_frame = self.bridge.cv2_to_imgmsg(cv2_img_ori)
             self.img_pub.publish(msg_frame )
             self.ret_pub.publish(Boxes_msg)
 

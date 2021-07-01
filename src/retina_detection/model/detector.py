@@ -17,6 +17,7 @@ from third_party.detectron2 import retinanet_head
 from third_party import torchvision
 
 
+
 class Detector(torch.nn.Module):
     def __init__(
         self,
@@ -45,7 +46,7 @@ class Detector(torch.nn.Module):
                 # Download the model. This has the yaml containing the backbone.
 
                 self.model_path = (
-                    pathlib.Path("~/runs/tire-detector").expanduser() / timestamp
+                    pathlib.Path("~/runs/barrel-detector").expanduser() / timestamp
                 )
 
             config = yaml.safe_load((self.model_path / "config.yaml").read_text())
