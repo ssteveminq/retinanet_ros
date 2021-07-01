@@ -1,19 +1,23 @@
 #!/usr/bin/env python3
 """A script to convert a dataset of YOLO annotations to a COCO dataset."""
 
+
 import pathlib
 import json
 import shutil
+import sys
+sys.path.remove('/opt/ros/melodic/lib/python2.7/dist-packages')
 
-from PIL import Image
 import cv2
+from PIL import Image
 
 
-_SAVE_DIR = pathlib.Path("./src/train/data/tire-dataset")
+# _SAVE_DIR = pathlib.Path("./src/train/data/tire-dataset")
+_SAVE_DIR = pathlib.Path("./src/train/data/barrel-dataset")
 _IMG_SAVE_DIR = _SAVE_DIR / "images"
 _IMG_SAVE_DIR.mkdir(parents=True, exist_ok=True)
-_IMG_DIR = pathlib.Path("./src/train/data/images")
-_LABELS_DIR = pathlib.Path("./src/train/data/labels")
+_IMG_DIR = pathlib.Path("/home/mk/srcs/barrel/images")
+_LABELS_DIR = pathlib.Path("/home/mk/srcs/barrel/annotations")
 _IMG_EXTS = [".jpg", ".jpeg", ".png"]
 
 
@@ -65,10 +69,7 @@ for idx, img in enumerate(images):
 
     shutil.copy2(img, _IMG_SAVE_DIR / img.name)
 
-    cv2.imwrite(
-        f"/home/alex/Desktop/projects/minimal-object-detector/src/train/data/drawn/{img.name}",
-        image,
-    )
+    cv2.imwrite(f"./src/train/data/drawn/{img.name}", image)
 
 save_path = _SAVE_DIR / "annotations.json"
 save_path.write_text(json.dumps(coco_dataset, indent=2))

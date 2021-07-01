@@ -24,13 +24,13 @@ training:
     momentum: 0.9
     weight_decay: 0
   lr_schedule:
-    start_lr: 1.0e-3
-    max_lr: 1.0e-3
+    start_lr: 1.0e-4
+    max_lr: 1.0e-4
     end_lr: 1.0e-8
     warmup_fraction: 0.72
-  epochs: 100
-  train_batch_size: 55
-  eval_batch_size: 55
-  eval_start_epoch: 50
+  epochs: 60
+  train_batch_size: 25
+  eval_batch_size: 1
+  eval_start_epoch: 10
 data:
-  data_path: "~/datasets/barrel-20210627T215439Z-001/barrel"
+  data_path: "/home/mk/srcs/barrel"

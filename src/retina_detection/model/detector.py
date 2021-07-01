@@ -1,6 +1,6 @@
 """A detector model which wraps around a feature extraction backbone, fpn, and RetinaNet
-head.This allows for easy interchangeability during experimentation and a reliable way to
-load saved models."""
+head. This allows for easy interchangeability during experimentation and a reliable way
+to load saved models."""
 
 import collections
 import pathlib
@@ -15,6 +15,13 @@ from third_party.detectron2 import regression
 from third_party.detectron2 import anchors
 from third_party.detectron2 import retinanet_head
 from third_party import torchvision
+
+object_target = 'barrel'
+if object_target=='barrel':
+    repo_path = "barrel-detector"
+else:
+    repo_path = "tire-detector"
+
 
 
 
@@ -47,6 +54,7 @@ class Detector(torch.nn.Module):
 
                 self.model_path = (
                     pathlib.Path("~/runs/barrel-detector").expanduser() / timestamp
+                    # pathlib.Path("~/runs/" +repo_path).expanduser() / timestamp
                 )
 
             config = yaml.safe_load((self.model_path / "config.yaml").read_text())
