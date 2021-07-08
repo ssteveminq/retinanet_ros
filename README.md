@@ -91,6 +91,18 @@ rosrun retinanet_ros test.py
 
 - You might have to change the topic name for image topic.
 
+## Run (ZoTac)
+- To build changes:
+
+```
+catkin build -DPYTHON_EXECUTABLE=/usr/bin/python3 -DPYTHON_INCLUDE_DIR=/usr/include/python3.8m
+```
+
+```
+source ~/.envs/py38/bin/activate
+rosrun retinanet_ros test.py
+
+```
 
 ## Contributer
 - Alexander Witt [`@alexwitt23`](https://github.com/alexwitt23)
