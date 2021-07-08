@@ -21,7 +21,7 @@ class ObjectDectors(object):
     def __init__(self, wait=0.0):
         # image_topic = "/camera/rgb/image_raw"
         # self.model_ = Detector(timestamp="2021-04-22T11.25.25")
-        self.model_ = Detector(timestamp="2021-06-27T16.50.49")
+        self.model_ = Detector(timestamp="2021-07-01T22.24.44")
         self.model_.eval()
         self.img_pub =rospy.Publisher("detected_image", Image, queue_size=10)
         self.ret_pub =rospy.Publisher("retina_ros/bounding_boxes", BoundingBoxes, queue_size=10)
