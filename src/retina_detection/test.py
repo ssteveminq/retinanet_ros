@@ -6,9 +6,11 @@ from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 import torch
 sys.path.remove('/usr/lib/python2.7/dist-packages')
-sys.path.remove('/opt/ros/melodic/lib/python2.7/dist-packages')
+melodic_path = '/opt/ros/melodic/lib/python2.7/dist-packages'
+if melodic_path in sys.path:
+	sys.path.remove('/opt/ros/melodic/lib/python2.7/dist-packages')
 import cv2
-sys.path.append('/opt/ros/melodic/lib/python2.7/dist-packages')
+sys.path.append('/opt/ros/noetic/lib/python2.7/dist-packages')
 # sys.path.append('/usr/lib/python2.7/dist-packages')
 import numpy as np
 # print("numpy_version", np.version)
