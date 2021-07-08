@@ -51,7 +51,11 @@ output should be like "/home/$user_name/anaconda3/envs/$environment_name/bin/pip
 pip install -r requirements.txt  (**Anaconda**)
 python3 -m pip install -r requirements.txt  (**python virtual environement**)
 ```
+- you might need this commands: 
 
+``` 
+pip3 install -U rosdep rosinstall_generator wstool rosinstall
+```
 
 ## Compile
 
