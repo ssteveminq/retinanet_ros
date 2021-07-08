@@ -100,6 +100,7 @@ catkin build -DPYTHON_EXECUTABLE=/usr/bin/python3 -DPYTHON_INCLUDE_DIR=/usr/incl
 - To run the package (py38_ws):
 ```
 source ~/.envs/py38/bin/activate
+source ~/py38_ws/devel/setup.bash
 rosrun retinanet_ros test.py
 
 ```
