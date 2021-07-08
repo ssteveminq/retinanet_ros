@@ -97,7 +97,7 @@ rosrun retinanet_ros test.py
 ```
 catkin build -DPYTHON_EXECUTABLE=/usr/bin/python3 -DPYTHON_INCLUDE_DIR=/usr/include/python3.8m
 ```
-
+- To run the package (py38_ws):
 ```
 source ~/.envs/py38/bin/activate
 rosrun retinanet_ros test.py
