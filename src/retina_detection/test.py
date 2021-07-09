@@ -15,6 +15,7 @@ import numpy as np
 from darknet_ros_msgs.msg import BoundingBox, BoundingBoxes
 
 from model.detector import *
+TARGET_SIZE=512
 
 
 class ObjectDectors(object):
@@ -29,7 +30,6 @@ class ObjectDectors(object):
         print("model-created")
         # image_topic = "/hsrb/head_rgbd_sensor/rgb/image_raw"
         image_topic = "camera/color/image_raw"
-        # camera/rgb/image_raw"
         rospy.Subscriber(image_topic, Image, self.image_callback)
         self.savefigure=False
         self.listener()
@@ -64,8 +64,16 @@ class ObjectDectors(object):
             # Convert your ROS Image message to numpy image data type
             cv2_img= np.frombuffer(msg.data, dtype=np.uint8).reshape(msg.height, msg.width, -1)
             cv2_img_ori= cv2.cvtColor(cv2_img, cv2.COLOR_BGR2RGB)
+            image_before_resize= cv2_img_ori
+            # image_before= cv2.cvtColor(image_before, cv2.COLOR_RGB2BGR)
             cv2_img_ori= cv2.resize(cv2_img_ori, (512, 512))
             image_ori = cv2.resize(cv2_img, (512, 512))
+            o_height, o_width=  cv2_img.shape[:2]
+            # print("o_width", o_width)
+            # print("o_height", o_height)
+            x_scale = o_width/TARGET_SIZE
+            y_scale = o_height/TARGET_SIZE
+
 
             #remove alpha channel if it exists
             if image_ori.shape[-1]==4:
@@ -86,12 +94,18 @@ class ObjectDectors(object):
                 # print(box.confidence)
                 confidence = float(box.confidence)
                 box = (box.box * torch.Tensor([512] * 4)).int().tolist()
+                box[0]=int(np.around(box[0]*x_scale))
+                box[2]=int(np.around(box[2]*x_scale))
+                box[1]=int(np.around(box[1]*y_scale))
+                box[3]=int(np.around(box[3]*y_scale))
+     
                 if confidence>0.1:
-                    cv2.rectangle(cv2_img_ori, (box[0], box[1]), (box[2], box[3]), (255, 0, 0), 2)
-                    cv2.putText(cv2_img_ori, str(confidence)[:4], (box[0]-2, box[1]-2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,0,0), 2)
+                    cv2.rectangle(image_before_resize, (box[0], box[1]), (box[2], box[3]), (0, 255, 0), 4)
+                    cv2.putText(image_before_resize, str(confidence)[:4], (box[0]-2, box[1]-2), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,0), 2)
                     # msg_frame = self.bridge.cv2_to_imgmsg(image_ori)
                     detection_box = BoundingBox()
                     # detection_box.Class=str(box.class_id)
+
                     detection_box.xmin = box[0]
                     detection_box.ymin = box[1]
                     detection_box.xmax = box[2]
@@ -100,7 +114,7 @@ class ObjectDectors(object):
                     Boxes_msg.bounding_boxes.append(detection_box)
 
             # msg_frame = self.bridge.cv2_to_imgmsg(image_ori)
-            msg_frame = self.bridge.cv2_to_imgmsg(cv2_img_ori)
+            msg_frame = self.bridge.cv2_to_imgmsg(image_before_resize)
             self.img_pub.publish(msg_frame )
             self.ret_pub.publish(Boxes_msg)
 
