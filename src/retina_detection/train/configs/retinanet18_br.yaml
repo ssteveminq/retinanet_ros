@@ -33,4 +33,4 @@ training:
   eval_batch_size: 1
   eval_start_epoch: 10
 data:
-  data_path: "/home/mk/srcs/barrel"
+  data_path: "/home/mk/project/retina/barrel"

@@ -16,8 +16,8 @@ from PIL import Image
 _SAVE_DIR = pathlib.Path("./src/train/data/barrel-dataset")
 _IMG_SAVE_DIR = _SAVE_DIR / "images"
 _IMG_SAVE_DIR.mkdir(parents=True, exist_ok=True)
-_IMG_DIR = pathlib.Path("/home/mk/srcs/barrel/images")
-_LABELS_DIR = pathlib.Path("/home/mk/srcs/barrel/annotations")
+_IMG_DIR = pathlib.Path("/home/mk/project/retina/barrel/images")
+_LABELS_DIR = pathlib.Path("/home/mk/project/retina/barrel/annotations")
 _IMG_EXTS = [".jpg", ".jpeg", ".png"]
 
 
