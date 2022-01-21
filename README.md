@@ -84,6 +84,8 @@ catkin build retinanet_ros
 
 - (Barrel) Go to the following link: https://drive.google.com/drive/folders/1G01Ag1YkqYPmBxdPZ7Sv2JJvzCNyGDax?usp=sharing
 
+- (Barrel-Updated: blur, brightness) https://drive.google.com/drive/folders/1iHYMjO9Ee18UiV9dsu-gqjb27-Px_U1f?usp=sharing 
+
 - Download the zip file and extract it into a folder called **~/runs/tire-detector/2021-04-22T11.25.25**
 
 - run the test code 
