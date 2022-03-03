@@ -34,7 +34,7 @@ In the config, find the `data.data_path` key and change the path to your dataset
 To start a training job, run:
 
 ```
-PYTHONPATH=. train/train.py \
+PYTHONPATH=. train/training.py \
     --config train/configs/retinanet18.yaml
 ```
 
