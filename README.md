@@ -81,12 +81,13 @@ catkin build retinanet_ros
 
 - (Tire) Go To the following link: https://drive.google.com/file/d/16DihIWDBkDreBPA_yqBTu9E3Gawq0QJ4/view?usp=sharing
 
-
 - (Barrel) Go to the following link: https://drive.google.com/drive/folders/1G01Ag1YkqYPmBxdPZ7Sv2JJvzCNyGDax?usp=sharing
 
-- (Barrel-Updated - 2022.JAN, blur, brightness) https://drive.google.com/drive/folders/1iHYMjO9Ee18UiV9dsu-gqjb27-Px_U1f?usp=sharing 
+- **(Barrel-Updated - 2022.MAR, blur, brightness, size )** https://drive.google.com/drive/folders/1bITuhoaSkbuMDPZube8AQNs2Lp-Azkb3?usp=sharing 
 
 - Download the zip file and extract it into a folder called **~/runs/tire-detector/2021-04-22T11.25.25**
+
+- Change the link information in test.py
 
 - run the test code 
 ```
